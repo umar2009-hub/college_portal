@@ -95,14 +95,28 @@ def student_dashboard():
         return render_template('student.html', name=session['name'])
     return redirect(url_for('login'))
 
+# @app.route('/admin')
+# def admin_dashboard():
+#     if 'loggedin' in session and session['role'] == 'admin':
+#         cursor = mysql.connection.cursor()
+#         cursor.execute("SELECT c.complaint_id,u.name,c.category,c.title,c.status FROM complaints c JOIN users u ON c.user_id=u.user_id")
+#         complaints = cursor.fetchall()
+#         return render_template('admin.html', complaints=complaints)
+#     return redirect(url_for('login'))
 @app.route('/admin')
 def admin_dashboard():
     if 'loggedin' in session and session['role'] == 'admin':
         cursor = mysql.connection.cursor()
-        cursor.execute("SELECT c.complaint_id,u.name,c.category,c.title,c.status FROM complaints c JOIN users u ON c.user_id=u.user_id")
+        # ✅ Fetch description also
+        cursor.execute("""
+            SELECT c.complaint_id, u.name, c.category, c.title, c.description, c.status
+            FROM complaints c 
+            JOIN users u ON c.user_id=u.user_id
+        """)
         complaints = cursor.fetchall()
         return render_template('admin.html', complaints=complaints)
     return redirect(url_for('login'))
+
 
 @app.route('/submit_complaint', methods=['POST'])
 def submit_complaint():
