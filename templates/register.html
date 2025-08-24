@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Register - Complaint Portal</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    /* Input fields */
+    input, select {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+      background-color: transparent;
+      color: #333;
+      outline: none;
+      transition: 0.3s ease;
+    }
+    input::placeholder {
+      color: black;
+      letter-spacing: 1px;
+      font-size: 16px;
+    }
+    input:focus, select:focus {
+      border-color: #007bff;
+      background-color: rgba(0, 123, 255, 0.4);
+      box-shadow: 0 0 6px rgba(0, 123, 255, 0.4);
+    }
+
+    /* Dropdown options */
+    select option {
+      background: none;
+      color: #333;
+      padding: 10px;
+    }
+
+    /* Button styling */
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 15px;
+      border: none;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #007bff, #0056b3);
+      color: #fff;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    button:hover {
+      background: linear-gradient(135deg, #0056b3, #004094);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    /* Flash messages */
+    .flash {
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 6px;
+      font-size: 14px;
+      text-align: center;
+      font-weight: bold;
+    }
+    .flash.error {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+    .flash.success {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+  </style>
+</head>
+  <body>
+    <!-- Loader Screen -->
+  <div id="loader">
+    <div class="spinner"></div>
+    <h2>Loading...</h2>
+  </div>
+
+  <!-- Your site content -->
+  <div id="content" style="display:none;">
+    <!-- your existing page content here -->
+  </div>
+
+  <div class="bg">
+    <div class="image">
+        <img src="https://uniteduniversity.edu.in/images/Logo/22.v1.PNG" alt="">
+    </div>
+    <div class="card slide-up">
+      <h2>Create Account</h2>
+
+      <!-- Show flash messages -->
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class="flash {{ category }}">{{ message }}</div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+
+      <form action="/register" method="POST">
+        <input type="text" name="name" placeholder="Full Name" required>
+        <input type="email" name="email" placeholder="Email Address" required>
+        <input type="password" name="password" placeholder="Password" required>
+        
+        <select name="role" required>
+          <option value="" disabled selected>Select Role</option>
+          <option value="student">Student</option>
+          <option value="admin">Admin</option>
+        </select>
+        
+        <button type="submit">Sign Up</button>
+      </form>
+    </div>
+  </div>
+  <script src="/static/script.js"></script>
+</body>
+</html>

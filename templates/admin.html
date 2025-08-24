@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- Loader Screen -->
+  <div id="loader">
+    <div class="spinner"></div>
+    <h2>Loading...</h2>
+  </div>
+
+  <!-- Your site content -->
+  <div id="content" style="display:none;">
+    <!-- your existing page content here -->
+  </div>
+
+  <div class="bg">
+    <div class="card fade-in">
+      <h2>📊 Complaints Dashboard</h2>
+      <table class="complaints-table">
+        <tr>
+          <th>ID</th>
+          <th>Student</th>
+          <th>Category</th>
+          <th>Title</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+        {% for c in complaints %}
+        <tr class="row-animate">
+          <td>{{ c[0] }}</td>
+          <td>{{ c[1] }}</td>
+          <td>{{ c[2] }}</td>
+          <td>{{ c[3] }}</td>
+          <td><span class="status {{ c[4]|lower }}">{{ c[4] }}</span></td>
+          <td>
+            <form action="/update_status/{{ c[0] }}" method="POST">
+              <select name="status">
+                <option value="Pending">Pending</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Resolved">Resolved</option>
+              </select>
+              <button type="submit">Update</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </table>
+      <a class="logout-btn" href="/logout">🚪 Logout</a>
+    </div>
+  </div>
+  <script src="/static/script.js"></script>
+</body>
+</html>

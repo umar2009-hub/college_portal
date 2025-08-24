@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Dashboard</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .bg {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #1a73e8, #4a90e2);
+    }
+
+    .card {
+      background: #fff;
+      padding: 35px 45px;
+      border-radius: 20px;
+      width: 480px;
+      box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+      animation: zoomIn 0.5s ease;
+    }
+
+    @keyframes zoomIn {
+      from { transform: scale(0.9); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      text-align: center;
+      color: #1a73e8;
+      font-weight: 600;
+    }
+
+    /* Unified Input & Textarea Design */
+    input, textarea, select {
+      width: 100%;
+      padding: 14px 16px;
+      margin: 14px 0;
+      border: none;
+      border-radius: 14px;
+      font-size: 15px;
+      background: #919bab91;
+      color: #333;
+      box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
+      transition: all 0.3s ease;
+    }
+
+    /* Focus effect */
+    input:focus, textarea:focus, select:focus {
+      background: #fff;
+      box-shadow: 0 0 10px rgba(26,115,232,0.4);
+      outline: none;
+    }
+
+    /* Larger Complaint Box */
+    textarea {
+      height: 160px;
+      resize: vertical;
+    }
+    textarea::placeholder{
+      color: black;
+      font-size: 16px;
+      font-weight:5px;
+      letter-spacing:1px;
+    }
+
+    /* Placeholder Styling */
+    input::placeholder {
+      color: black;
+      letter-spacing: 1px;
+    }
+
+    /* Dropdown */
+    select {
+      appearance: none;
+      cursor: pointer;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      margin-top: 15px;
+      border: none;
+      border-radius: 14px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      background: linear-gradient(135deg, #1a73e8, #4a90e2);
+      color: #fff;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background: linear-gradient(135deg, #1669c1, #357abd);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(26,115,232,0.4);
+    }
+
+    .links {
+      margin-top: 22px;
+      text-align: center;
+    }
+
+    .links a {
+      text-decoration: none;
+      color: #1a73e8;
+      font-weight: 500;
+      margin: 0 10px;
+      padding: 8px 14px;
+      border-radius: 10px;
+      transition: 0.3s ease;
+    }
+
+    .links a:hover {
+      background: rgba(26,115,232,0.12);
+    }
+  </style>
+</head>
+<body>
+    <!-- Loader Screen -->
+  <div id="loader">
+    <div class="spinner"></div>
+    <h2>Loading...</h2>
+  </div>
+
+  <!-- Your site content -->
+  <div id="content" style="display:none;">
+    <!-- your existing page content here -->
+  </div>
+
+  <div class="bg">
+    <div class="image">
+        <img src="https://uniteduniversity.edu.in/images/Logo/22.v1.PNG" alt="">
+    </div>
+    <div class="card">
+      <h2>Submit Complaint 📝</h2>
+      <form action="/submit_complaint" method="POST">
+        <input type="text" name="title" placeholder="✍ Enter Complaint Title..." required>
+        <textarea name="description" placeholder="💡 Describe your issue in detail..." required></textarea>
+        <select name="category" required>
+          <option value="" disabled selected>📂 Select Category</option>
+          <option value="academics">📚 Academics</option>
+          <option value="hostel">🏠 Hostel</option>
+          <option value="library">📖 Library</option>
+          <option value="canteen">🍴 Canteen</option>
+          <option value="other">🛠 Other</option>
+        </select>
+        <button type="submit">🚀 Submit Complaint</button>
+      </form>
+      <div class="links">
+        <a href="/my_complaints">📂 My Complaints</a>
+        <a href="/logout">🚪 Logout</a>
+      </div>
+    </div>
+  </div>
+  <script src="/static/script.js"></script>
+
+</body>
+</html>

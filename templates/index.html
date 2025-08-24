@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login - Complaint Portal</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <style>
+    .error-message {
+      color: red;
+      font-size: 14px;
+      margin-top: 8px;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+    <!-- Loader Screen -->
+  <div id="loader">
+    <div class="spinner"></div>
+    <h2>Loading...</h2>
+  </div>
+
+  <!-- Your site content -->
+  <div id="content" style="display:none;">
+    <!-- your existing page content here -->
+  </div>
+
+  <div class="bg">
+    <div class="image">
+        <img src="https://uniteduniversity.edu.in/images/Logo/22.v1.PNG" alt="">
+    </div>
+    <div class="card fade-in">
+      <h2>Complaint Portal</h2>
+      <form action="/login" method="POST">
+        <input type="email" name="email" placeholder="Enter Email" required>
+        <input type="password" name="password" placeholder="Enter Password" required>
+        
+        {% if msg %}
+          <p class="error-message">{{ msg }}</p>
+        {% endif %}
+        
+        <button type="submit">Login</button>
+        <p>Don’t have an account? <a href="/register">Register here</a></p>
+      </form>
+    </div>
+  </div>
+<script src="/static/script.js"></script>
+</body>
+</html>
