@@ -32,13 +32,11 @@
   </style>
 </head>
 <body>
-  <!-- Loader Screen -->
   <div id="loader">
     <div class="spinner"></div>
     <h2>Loading...</h2>
   </div>
 
-  <!-- Your site content -->
   <div id="content" style="display:none;">
     <div class="bg">
       <div class="card fade-in">
@@ -86,7 +84,6 @@
   </div>
 
   <script>
-    // ✅ Show/hide description
     function toggleDesc(id) {
       let descBox = document.getElementById(id);
       if (descBox.style.display === "none" || descBox.style.display === "") {

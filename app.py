@@ -1,28 +1,27 @@
+import os
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from flask_mysqldb import MySQL
 import MySQLdb.cursors
 import re
 
 app = Flask(__name__)
-app.secret_key = "supersecretkey"   # for session
+app.secret_key = "supersecretkey"   
 
-# MySQL Config
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'Umar@2005'   # your MySQL password
+app.config['MYSQL_PASSWORD'] = 'Umar@2005'   
 app.config['MYSQL_DB'] = 'complaint_portal'
 
 mysql = MySQL(app)
 complaints = []
 
-# ================= Routes =================
 
 @app.route('/')
 def home():
     return redirect(url_for('login'))
 @app.route('/login', methods=['GET','POST'])
 def login():
-    msg = ''  # message for errors
+    msg = '' 
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
@@ -32,22 +31,18 @@ def login():
         account = cursor.fetchone()
 
         if account:
-            # store session values
             session['loggedin'] = True
             session['id'] = account['user_id']
             session['name'] = account['name']
             session['role'] = account['role']
 
-            # redirect based on role
             if account['role'] == 'admin':
                 return redirect(url_for('admin_dashboard'))
             else:
                 return redirect(url_for('student_dashboard'))
         else:
-            # wrong credentials
             msg = 'Invalid email or password!'
 
-    # render login page with message (if any)
     return render_template('index.html', msg=msg)
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -60,22 +55,18 @@ def register():
 
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
 
-        # ✅ Check if email already exists
         cursor.execute("SELECT * FROM users WHERE email = %s", (email,))
         existing_user = cursor.fetchone()
         if existing_user:
             flash("Email already exists. Please use another one.", "error")
             return redirect(url_for("register"))
 
-        # ✅ Get the maximum user_id from table
         cursor.execute("SELECT MAX(user_id) AS max_id FROM users")
         result = cursor.fetchone()
         next_id = 1 if result['max_id'] is None else result['max_id'] + 1
 
-        # ✅ Reset AUTO_INCREMENT to next_id
         cursor.execute("ALTER TABLE users AUTO_INCREMENT = %s", (next_id,))
 
-        # ✅ Insert new record
         cursor.execute(
             'INSERT INTO users (name, email, password, role) VALUES (%s, %s, %s, %s)',
             (name, email, password, role)
@@ -95,19 +86,10 @@ def student_dashboard():
         return render_template('student.html', name=session['name'])
     return redirect(url_for('login'))
 
-# @app.route('/admin')
-# def admin_dashboard():
-#     if 'loggedin' in session and session['role'] == 'admin':
-#         cursor = mysql.connection.cursor()
-#         cursor.execute("SELECT c.complaint_id,u.name,c.category,c.title,c.status FROM complaints c JOIN users u ON c.user_id=u.user_id")
-#         complaints = cursor.fetchall()
-#         return render_template('admin.html', complaints=complaints)
-#     return redirect(url_for('login'))
 @app.route('/admin')
 def admin_dashboard():
     if 'loggedin' in session and session['role'] == 'admin':
         cursor = mysql.connection.cursor()
-        # ✅ Fetch description also
         cursor.execute("""
             SELECT c.complaint_id, u.name, c.category, c.title, c.description, c.status
             FROM complaints c 
@@ -126,15 +108,13 @@ def submit_complaint():
         category = request.form['category']
         cursor = mysql.connection.cursor()
 
-        # ✅ Get max complaint_id
         cursor.execute("SELECT MAX(complaint_id) AS max_id FROM complaints")
         result = cursor.fetchone()
         next_id = 1 if result[0] is None else result[0] + 1  
 
-        # ✅ Reset AUTO_INCREMENT
         cursor.execute("ALTER TABLE complaints AUTO_INCREMENT = %s", (next_id,))
 
-        # ✅ Insert complaint
+
         cursor.execute("""
             INSERT INTO complaints (user_id, title, description, category, status) 
             VALUES (%s, %s, %s, %s, %s)
@@ -150,7 +130,7 @@ def my_complaints():
     if 'loggedin' not in session or session['role'] != 'student':
         return redirect(url_for('login'))
 
-    user_id = session['id']  # get logged-in student's ID
+    user_id = session['id']  
 
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute(
@@ -180,4 +160,5 @@ def logout():
     return redirect(url_for('login'))
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port, debug=True)

@@ -7,6 +7,6 @@
     setTimeout(() => {
       loader.style.display = "none";
       content.style.display = "block";
-    }, 1000); // matches fade-out duration
+    }, 1000); 
   });
 
