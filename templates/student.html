@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <title>Student Dashboard</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- responsiveness -->
+
   <style>
     body {
       font-family: 'Poppins', sans-serif;
@@ -13,17 +15,26 @@
 
     .bg {
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
       background: linear-gradient(135deg, #1a73e8, #4a90e2);
+      padding: 20px;
+    }
+
+    .image img {
+      max-width: 180px;
+      height: auto;
+      margin-bottom: 20px;
     }
 
     .card {
       background: #fff;
       padding: 35px 45px;
       border-radius: 20px;
-      width: 480px;
+      width: 100%;
+      max-width: 480px;
       box-shadow: 0 12px 25px rgba(0,0,0,0.15);
       animation: zoomIn 0.5s ease;
     }
@@ -38,9 +49,10 @@
       text-align: center;
       color: #1a73e8;
       font-weight: 600;
+      font-size: 1.6rem;
     }
 
-    /* Unified Input & Textarea Design */
+    /* Input & Textarea Design */
     input, textarea, select {
       width: 100%;
       padding: 14px 16px;
@@ -61,16 +73,15 @@
       outline: none;
     }
 
-    /* Larger Complaint Box */
+    /* Complaint Box */
     textarea {
       height: 160px;
       resize: vertical;
     }
-    textarea::placeholder{
+    textarea::placeholder {
       color: black;
-      font-size: 16px;
-      font-weight:5px;
-      letter-spacing:1px;
+      font-size: 15px;
+      letter-spacing: 1px;
     }
 
     /* Placeholder Styling */
@@ -85,6 +96,7 @@
       cursor: pointer;
     }
 
+    /* Button */
     button {
       width: 100%;
       padding: 14px;
@@ -118,10 +130,41 @@
       padding: 8px 14px;
       border-radius: 10px;
       transition: 0.3s ease;
+      display: inline-block;
     }
 
     .links a:hover {
       background: rgba(26,115,232,0.12);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .card {
+        padding: 25px 30px;
+      }
+      h2 {
+        font-size: 1.4rem;
+      }
+      input, textarea, select, button {
+        font-size: 0.95rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .card {
+        padding: 20px;
+        border-radius: 14px;
+      }
+      h2 {
+        font-size: 1.2rem;
+      }
+      input, textarea, select, button {
+        padding: 12px;
+        font-size: 0.9rem;
+      }
+      .image img {
+        max-width: 140px;
+      }
     }
   </style>
 </head>
@@ -131,12 +174,11 @@
     <h2>Loading...</h2>
   </div>
 
-  <div id="content" style="display:none;">
-  </div>
+  <div id="content" style="display:none;"></div>
 
   <div class="bg">
     <div class="image">
-        <img src="https://uniteduniversity.edu.in/images/Logo/22.v1.PNG" alt="">
+      <img src="https://uniteduniversity.edu.in/images/Logo/22.v1.PNG" alt="University Logo">
     </div>
     <div class="card">
       <h2>Submit Complaint 📝</h2>
@@ -159,7 +201,7 @@
       </div>
     </div>
   </div>
-  <script src="/static/script.js"></script>
 
+  <script src="/static/script.js"></script>
 </body>
 </html>

@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <title>Register - Complaint Portal</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- for responsiveness -->
+
   <style>
     /* Input fields */
     input, select {
@@ -21,12 +23,12 @@
     input::placeholder {
       color: black;
       letter-spacing: 1px;
-      font-size: 16px;
+      font-size: 15px;
     }
     input:focus, select:focus {
       border-color: #007bff;
-      background-color: rgba(0, 123, 255, 0.4);
-      box-shadow: 0 0 6px rgba(0, 123, 255, 0.4);
+      background-color: rgba(0, 123, 255, 0.1);
+      box-shadow: 0 0 6px rgba(0, 123, 255, 0.3);
     }
 
     /* Dropdown options */
@@ -59,6 +61,7 @@
     h2 {
       text-align: center;
       margin-bottom: 20px;
+      font-size: 1.6rem;
     }
 
     /* Flash messages */
@@ -80,20 +83,49 @@
       color: #155724;
       border: 1px solid #c3e6cb;
     }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .card {
+        padding: 20px;
+      }
+      h2 {
+        font-size: 1.4rem;
+      }
+      input, select, button {
+        font-size: 0.95rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .card {
+        padding: 15px;
+        border-radius: 10px;
+      }
+      h2 {
+        font-size: 1.2rem;
+      }
+      input, select, button {
+        padding: 10px;
+        font-size: 0.9rem;
+      }
+      .image img {
+        max-width: 140px;
+      }
+    }
   </style>
 </head>
-  <body>
+<body>
   <div id="loader">
     <div class="spinner"></div>
     <h2>Loading...</h2>
   </div>
 
-  <div id="content" style="display:none;">
-  </div>
+  <div id="content" style="display:none;"></div>
 
   <div class="bg">
     <div class="image">
-        <img src="https://uniteduniversity.edu.in/images/Logo/22.v1.PNG" alt="">
+      <img src="https://uniteduniversity.edu.in/images/Logo/22.v1.PNG" alt="University Logo">
     </div>
     <div class="card slide-up">
       <h2>Create Account</h2>
@@ -121,6 +153,7 @@
       </form>
     </div>
   </div>
+
   <script src="/static/script.js"></script>
 </body>
 </html>
