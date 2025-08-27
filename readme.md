@@ -1,79 +1,79 @@
-📊 Complaint Management System
+**📊 Complaint Management System**
 
 A web-based Complaint Management System built using Flask, where students can submit complaints and admins can manage, track, and resolve them through a dashboard.
 
-🚀 Features
+**🚀 Features**
 
-📝 Student Side
+**  📝 Student Side**
+  
+  Submit complaints with title, category, and description
+  
+  Track the status of submitted complaints
 
-Submit complaints with title, category, and description
+  **🔑 Admin Side**
+  
+  Login-secured dashboard
+  
+  View all complaints in a clean tabular format
+  
+  Collapsible complaint descriptions
+  
+  Update complaint status (Pending / In Progress / Resolved)
+  
+  Logout functionality
+  
+  **🎨 UI**
+  
+  Responsive design (works on desktop & mobile)
+  
+  Smooth animations & modern styling
+  
+  Loading spinner before content display
 
-Track the status of submitted complaints
+**🛠️ Tech Stack**
 
-🔑 Admin Side
+  Frontend: HTML, CSS, JavaScript
+  
+  Backend: Python (Flask)
+  
+  Database: SQLite (default)
+  
+  Version Control: Git & GitHub
 
-Login-secured dashboard
+**📂 Project Structure**
 
-View all complaints in a clean tabular format
+  project-folder/
+  │── static/ → CSS, JS, images
+  │── templates/ → HTML files (Flask templates)
+  │── app.py → Flask app entry point
+  │── requirements.txt → Dependencies
+  │── README.md → Project documentation
 
-Collapsible complaint descriptions
+**Setup Instructions**
 
-Update complaint status (Pending / In Progress / Resolved)
-
-Logout functionality
-
-🎨 UI
-
-Responsive design (works on desktop & mobile)
-
-Smooth animations & modern styling
-
-Loading spinner before content display
-
-🛠️ Tech Stack
-
-Frontend: HTML, CSS, JavaScript
-
-Backend: Python (Flask)
-
-Database: SQLite (default)
-
-Version Control: Git & GitHub
-
-📂 Project Structure
-
-project-folder/
-│── static/ → CSS, JS, images
-│── templates/ → HTML files (Flask templates)
-│── app.py → Flask app entry point
-│── requirements.txt → Dependencies
-│── README.md → Project documentation
-
-Setup Instructions
-
-Clone the repository
-
-git clone https://github.com/your-username/complaint-system.git
-cd complaint-system
-
-
-Create virtual environment (optional but recommended)
-
-python -m venv venv
-source venv/bin/activate   # For Linux/Mac
-venv\Scripts\activate      # For Windows
+  **Clone the repository**
+  
+  git clone https://github.com/your-username/complaint-system.git
+  cd complaint-system
 
 
-Install dependencies
+**Create virtual environment (optional but recommended)**
+
+  python -m venv venv
+  source venv/bin/activate   # For Linux/Mac
+  venv\Scripts\activate      # For Windows
+
+
+**Install dependencies**
 
 pip install -r requirements.txt
 
 
-Run the application
+**Run the application**
 
-python app.py
+  python app.py
 
 
-Open in browser:
+**Open in browser:**
 
-http://127.0.0.1:5000/
+  http://127.0.0.1:5000/
